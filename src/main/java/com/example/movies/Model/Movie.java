@@ -1,10 +1,14 @@
 package com.example.movies.Model;
 
-import lombok.*;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
 
@@ -14,16 +18,22 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie {
-    @Id
-    private ObjectId id;
-    private String imdbId;
-    private String title;
+
+    private int id;
+    private boolean adult;
+    private String backdropPath;
+    private List<Integer> genreIds;
+    private String originalLanguage;
+    private String originalTitle;
+    private String overview;
+    private double popularity;
+    private String posterPath;
     private String releaseDate;
-    private String trailerLink;
-    private String poster;
-    private List<String> genres;
-    private List<String> backDrops;
-    @DocumentReference //cause database to store only ID of review, and reviews in seperate collection
-    private List<Review> reviewIds;
+    private String title;
+
+    //@DocumentReference //cause database to store only ID of review, and reviews in separate collection
+    //private List<Review> reviewIds;
 }
